@@ -15,20 +15,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.TestActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivUser"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:elevation="12dp"
+        android:id="@+id/view2"
+        app:cardCornerRadius="40dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
         android:layout_marginTop="20dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_user"
+        android:thicknessRatio="1.9"
+        android:background="@color/teal_200"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline" />
+        app:layout_constraintStart_toStartOf="@id/guideline" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:id="@+id/imageView"
+            android:src="@drawable/ic_user"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+        </androidx.appcompat.widget.AppCompatImageView>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAddRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        tools:listitem="@layout/test_item"
+        android:orientation="vertical"
+        tools:itemCount="3"
+        app:layout_constraintTop_toBottomOf="@id/view2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/Guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"

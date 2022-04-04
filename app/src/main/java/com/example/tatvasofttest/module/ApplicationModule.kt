@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import util.network.DataSoruce
+import util.network.ResourceDataSoruce
 import util.network.NetworkService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -33,8 +33,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun dataSources(): DataSoruce {
-        return DataSoruce()
+    fun dataSources(): ResourceDataSoruce {
+        return ResourceDataSoruce()
     }
 
     @Provides

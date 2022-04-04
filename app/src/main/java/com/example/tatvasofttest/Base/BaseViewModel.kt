@@ -1,9 +1,10 @@
 package com.example.tatvasofttest.Base
 
 import androidx.lifecycle.ViewModel
+import util.network.ResourceDataSoruce
 import java.lang.ref.WeakReference
 import javax.inject.Inject
-import javax.sql.DataSource
+
 
 open class BaseViewModel<N>: ViewModel() {
 
@@ -18,5 +19,5 @@ open class BaseViewModel<N>: ViewModel() {
 
 
     @Inject
-    lateinit var baseDataSource: DataSource
+    lateinit var baseDataSource: ResourceDataSoruce
 }

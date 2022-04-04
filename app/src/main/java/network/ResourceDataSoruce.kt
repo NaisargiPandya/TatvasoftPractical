@@ -6,7 +6,7 @@ import network.Resource
 import retrofit2.Response
 import java.lang.Exception
 
-class DataSoruce {
+class ResourceDataSoruce {
 
     open suspend fun <T> getResult(
         isInit: Boolean = false,
