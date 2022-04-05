@@ -13,7 +13,7 @@ import com.example.tatvasofttest.R
 import com.example.tatvasofttest.databinding.TestImageInnerItemBinding
 import com.example.tatvasofttest.databinding.TestItemBinding
 
-class ImageAdapter(val imageList: MutableList<String>) :
+class ImageAdapter(val imageList: List<String>) :
     RecyclerView.Adapter<ImageAdapter.MenuHolder>() {
 
     lateinit var context: Context
@@ -24,9 +24,7 @@ class ImageAdapter(val imageList: MutableList<String>) :
         context = parent.context
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.test_item,
-            parent,
-            false
+            R.layout.test_image_inner_item, parent, false
         )
 
         return MenuHolder(binding)
@@ -35,14 +33,14 @@ class ImageAdapter(val imageList: MutableList<String>) :
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MenuHolder, @SuppressLint("RecyclerView") position: Int) {
 
-        val test = imageList[position]
-        binding.ivImageview.load
+        val data = imageList[position]
+        binding.ivImageview.loadImage(data)
 
     }
 
 
     override fun getItemCount(): Int {
-        return testList.size
+        return imageList.size
     }
 
     class MenuHolder(var binding: TestImageInnerItemBinding) :
