@@ -1,4 +1,4 @@
-package network
+package com.example.tatvasofttest.network
 
 data class Resource<out T>(
     val status: Status,
@@ -12,7 +12,6 @@ data class Resource<out T>(
         ERROR,
         LOADING,
         NO_INTERNET_CONNECTION,
-        SHIMMER_VIEW
     }
 
     companion object {
@@ -29,10 +28,6 @@ data class Resource<out T>(
             return Resource(Status.LOADING, data, null)
         }
 
-        fun <T> shimmer(data: T? = null): Resource<T> {
-
-            return Resource(Status.SHIMMER_VIEW, data, null)
-        }
 
         fun <T> noInternetConnection(data: T? = null): Resource<T> {
             return Resource(Status.NO_INTERNET_CONNECTION, null)

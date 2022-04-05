@@ -1,8 +1,10 @@
 package com.example.tatvasofttest.ui
 
-import Response.MainTestResponse
+import com.example.tatvasofttest.Response.MainTestResponse
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.tatvasofttest.BR
 import com.example.tatvasofttest.Base.BaseActivity
 import com.example.tatvasofttest.R
@@ -10,17 +12,19 @@ import com.example.tatvasofttest.com.example.tatvasofttest.ui.ChooseMainAdapter
 import com.example.tatvasofttest.com.example.tatvasofttest.ui.TestNavigator
 import com.example.tatvasofttest.databinding.ActivityTestBinding
 import dagger.hilt.android.AndroidEntryPoint
-import network.Resource
+import com.example.tatvasofttest.network.Resource
 
 @AndroidEntryPoint
 class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(),TestNavigator {
 
-    var chooseMainList : ArrayList<MainTestResponse>  = ArrayList()
-    lateinit var chooseAdapter: ChooseMainAdapter
+    var chooseMainList : ArrayList<MainTestResponse.DataList.Users>  = ArrayList()
+    lateinit var chooseMainAdapter: ChooseMainAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel.setNavigator(this)
+        mViewModel.getMainList()
 
     }
 
@@ -30,51 +34,41 @@ class TestActivity : BaseActivity<ActivityTestBinding, TestViewModel>(),TestNavi
         get() = BR.viewModel
 
     override fun setupObservable() {
-        mViewModel.getMainList().observe(this, {
+
+        mViewModel.getTestPlanObservable().observe(this, {
 
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-                    binding.commonProgressButton.setLoading(false, userPreference)
 
-                    Log.e(TAG, "on success=>${it.message}")
+                    Log.e("TAG", "on success=>${it.message}")
+                    Toast.makeText(this, "ON success!!", Toast.LENGTH_SHORT).show()
 
                     it.let {
-                        val data = gson.toJson(it.data)
-                        choosePlanList = it.data!!.plansList
-                        choosePlanAdapter= ChoosePlanAdapter(navigator,choosePlanList, language)
-                        binding.rvServiceBox.adapter = choosePlanAdapter
+                        val dataValue = gson.toJson(it.data)
+                        if (it.data?.data?.users != null && it.data.data.users!!.size != 0) {
+                            chooseMainList.addAll(it.data.data.users!!)
+                        }
+                        chooseMainAdapter= ChooseMainAdapter(chooseMainList!!)
+                        binding.rvAddRecyclerView.adapter = chooseMainAdapter
                         Log.e("TAG", "SUCCESS::${it.status}")
                     }
                 }
 
                 Resource.Status.ERROR -> {
-                    binding.commonProgressButton.setLoading(false, userPreference)
 
                     Log.e(TAG, "on error=>${it.message}")
-                    if (!checkIsSessionOut(it.code)) {
-                        it.message?.let { message ->
-                            alertDialog(
-                                message = if (checkIsConnectionReset(it.code)) {
-                                    getString(R.string.connection_reset)
-                                } else {
-                                    message.toString()
-                                }
-                            )
-                        }
-                    }
+                    Toast.makeText(this, "ON Error!!", Toast.LENGTH_SHORT).show()
                 }
 
                 Resource.Status.LOADING -> {
                     Log.e(TAG, "loading=>${it.message}")
+                    Toast.makeText(this, "ON Loading!!", Toast.LENGTH_SHORT).show()
+
                 }
 
                 Resource.Status.NO_INTERNET_CONNECTION -> {
                     Log.e(TAG, "no internet=>${it.message}")
-                    isInternetConnected = false
-                    showInternetDialog(false)
-                }
-
-                Resource.Status.SHIMMER_VIEW -> {
+                    Toast.makeText(this, "ON Internet check!!", Toast.LENGTH_SHORT).show()
 
                 }
 

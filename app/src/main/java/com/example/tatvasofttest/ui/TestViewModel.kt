@@ -1,11 +1,7 @@
 package com.example.tatvasofttest.ui
 
-import Extention.AppLog
-import Response.MainTestResponse
-import android.content.ContentValues.TAG
+import com.example.tatvasofttest.Response.MainTestResponse
 import android.content.Context
-import android.provider.SyncStateContract
-import androidx.constraintlayout.widget.Constraints.TAG
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,11 +10,11 @@ import com.example.tatvasofttest.com.example.tatvasofttest.ui.TestNavigator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import network.ApiConst
-import network.NetworkUtils
-import network.Resource
+import com.example.tatvasofttest.network.ApiConst
+import com.example.tatvasofttest.network.NetworkUtils
+import com.example.tatvasofttest.network.Resource
 import retrofit2.Response
-import util.network.NetworkService
+import com.example.tatvasofttest.network.NetworkService
 import javax.inject.Inject
 
 class TestViewModel @Inject constructor(
@@ -34,7 +30,7 @@ class TestViewModel @Inject constructor(
     }
 
     fun getMainList() {
-        if (NetworkUtils.isNetworkConnected(context)) {
+        if (NetworkUtils.isNetworkConnected(context)){
             var response: Response<MainTestResponse>? = null
             viewModelScope.launch {
                 testResponseObservable.value = Resource.loading(null)
@@ -44,7 +40,6 @@ class TestViewModel @Inject constructor(
                 }
                 withContext(Dispatchers.Main) {
                     response.run {
-                        AppLog.e("SyncStateContract.Constants.TAG", "${baseDataSource.getResult(true) { this!! }}")
                         testResponseObservable.value =
                             baseDataSource.getResult(true) { this!! }
                     }

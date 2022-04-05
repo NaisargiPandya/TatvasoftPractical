@@ -1,11 +1,11 @@
-package network
+package com.example.tatvasofttest.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-interface NetworkUtils {
+object NetworkUtils {
 
     fun isNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

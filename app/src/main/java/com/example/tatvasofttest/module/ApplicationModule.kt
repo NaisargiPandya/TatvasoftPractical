@@ -7,13 +7,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import network.ApiConst.Companion.BASE_URL
+import com.example.tatvasofttest.network.ApiConst.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import util.network.ResourceDataSoruce
-import util.network.NetworkService
+import com.example.tatvasofttest.network.NetworkService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -49,6 +49,8 @@ class ApplicationModule {
         .build()
 
 
+    @Provides
+    @Singleton
     fun okHttpClient(): OkHttpClient {
         val levelType: HttpLoggingInterceptor.Level = if (androidx.viewbinding.BuildConfig.DEBUG)
             HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE

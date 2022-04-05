@@ -1,4 +1,4 @@
-package Response
+package com.example.tatvasofttest.Response
 
 import com.google.gson.annotations.SerializedName
 

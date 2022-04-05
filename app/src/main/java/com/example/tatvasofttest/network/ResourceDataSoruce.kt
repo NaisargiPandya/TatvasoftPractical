@@ -1,8 +1,8 @@
 package util.network
 
-import Extention.AppLog
-import Response.BaseResponse
-import network.Resource
+import com.example.tatvasofttest.Extention.AppLog
+import com.example.tatvasofttest.Response.BaseResponse
+import com.example.tatvasofttest.network.Resource
 import retrofit2.Response
 import java.lang.Exception
 

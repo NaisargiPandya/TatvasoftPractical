@@ -1,7 +1,7 @@
-package Extention
+package com.example.tatvasofttest.Extention
 
 import android.util.Log
-import de.hdodenhof.circleimageview.BuildConfig
+import com.example.tatvasofttest.BuildConfig
 
 object AppLog {
 
